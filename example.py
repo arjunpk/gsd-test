@@ -57,3 +57,15 @@ def sorter_example_by_state(n=50):
     cars = generate_cars(n)
     Car.sort_car_list(cars,'license_plate_state', True)
     return cars
+
+
+class ProgressiveClaim(Claims):
+    def __init__(self, year):
+        super().__init__('Progressive')
+        self.claim_year = year
+
+#create car with a claim
+def create_car_with_claim():
+    car = Car(randomString(9))
+    car.claim_history = ProgressiveClaim(2010)
+    return car
