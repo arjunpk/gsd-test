@@ -12,6 +12,7 @@ This repository has 2 python files.
 This class holds details of a single Car
 ### Fields
 - id - An auto generated unique id
+- vin - VIN(Vehicle Identification Number) of the car. **This field is mandatory**
 - year - The year the car was manufactured
 - make - The Make of the car
 - model - The model of the car
@@ -50,4 +51,25 @@ inputs
 - reverse - a boolean value indicating whether the list should be sorted i descending order
 
 outputs
- - list of cars sorted based on key. none if the list is being sorted inplace 
+ - list of cars sorted based on key. none if the list is being sorted inplace
+
+## Claims
+An abstract base class to define claims for different companies
+
+### Methods
+#### check
+This method check if the object belongs to a class which was derived from this class; raises an exception if not
+inputs - any object
+
+## Fleet
+This class holds aggregate metrics for a fleet of cars
+### Fields
+- count - Total number of cars in the fleet
+- count_by_year - Count of number of cars by year of manufacture
+- total_purchase_price - Total purchase price of the cars in the fleet
+### Methods
+#### agg
+This method creates aggregated metrics for a fleet of cars
+input - list of Cars
+output - Fleet object
+usage - Fleet.agg(list)
