@@ -1,10 +1,6 @@
 # Take home Test
 *Python Version = 3.5.6*
 
-This repository has 2 python files.
-1. solution.py - This file contains the Data Structures designed to address the requirements
-2. example.py - This file provides examples/helper functions to demonstrate the usage of the Data Structures and methods in solution.py
-
 # solution.py
 
 ## Car
