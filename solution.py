@@ -1,3 +1,8 @@
+###############################################################################
+# Date: 13 September 2019                                                     #
+# Author: Arjun Kishore                                                       #
+# This file contains classes designed to accomodate the provided requirements #
+###############################################################################
 import uuid
 import json
 
@@ -54,7 +59,7 @@ class Car(object):
 
     @claim_history.setter
     def claim_history(self, claims):
-        if isinstance(claim, list):
+        if isinstance(claims, list):
             for claim in claims:
                 self.__insert_claim(claim)
         else: self.__insert_claim(claims)
@@ -63,8 +68,7 @@ class Car(object):
         del(self.__claim_history[index])
 
     def __insert_claim(self, claim):
-        if not issubclass(claim, Claims):
-            raise ValueError('Claim object expected')
+        Claims.check(claim)
         self.__claim_history.append(claim)
 
     def __str__(self):
@@ -104,14 +108,14 @@ class Claims(object):
 
     @staticmethod
     def check(claim):
-        if not issubclass(claim, Claims):
+        if not issubclass(type(claim), Claims):
             raise ValueError('Claim object expected')
 
     def __repr__(self):
         return json.dumps(self.__dict__, default=str)
 
     def __str__(self):
-        self.__repr__()
+        return self.__repr__()
 
 class Fleet(object):
     """
@@ -161,7 +165,7 @@ class VINIndex(object):
     :method add_car : Add cars to the index
         input - Car object OR list of Car objects
     """
-    def init(self):
+    def __init__(self):
         self.__index = {}
 
     def get_car_by_vin(self, vin):
@@ -174,11 +178,11 @@ class VINIndex(object):
         else: self.__add_car(cars)
 
     def __add_car(self, car):
-        Car.check_with_exception(cars)
+        Car.check_with_exception(car)
         self.__index[car.vin] = car
 
     def __repr__(self):
         return json.dumps(self.__dict__, default=str)
 
     def __str__(self):
-        self.__repr__()
+        return self.__repr__()
