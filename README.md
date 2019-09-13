@@ -27,4 +27,20 @@ The file solutions.py contains data structures designed to address the requireme
 	# add an individual car
 	idx.add_car(car)
 	# retreive a car by VIN number
-	car = idx.get_car_by_vin('vin number') 
+	car = idx.get_car_by_vin('vin number')
+	```
+5. Requirement 5: We can use pythons default sort or sorted method for this. The key for sorting can be defined dynamically by using a dictionary and lambda expressions. This has been coded as the staticmethod `sort_car_list` in the class `Car`
+	``` python
+	def sort_car_list(cars, key, inplace=False, reverse=False):
+      switcher={ 'year' : lambda x: x.year,
+          'make': lambda x: x.make,
+          'model': lambda x: x.model,
+          'purchase_value': lambda x: x.purchase_value,
+          'license_plate_state': lambda x: x.license_plate_state,
+          'license_plate_number': lambda x: x.license_plate_number,
+          'vin': lambda x: x.vin }
+      func = switcher.get(key,
+          lambda x: (_ for _ in ()).throw(ValueError('Invalid Key')))
+      if inplace: cars.sort(key=func, reverse=reverse)
+      else: return sorted(cars, key=func, reverse=reverse)
+  ```
