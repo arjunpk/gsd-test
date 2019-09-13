@@ -17,6 +17,9 @@ class Car(object):
     :param claim_history : List of claims for this car. Each element
         of this list has to be an object of base class Claims
 
+    :method remove_claim_at_index : Remove the claim at a particular
+        index from the claim history
+        input - index (int)
     :method check_car : checks if the object is an instance of Car
         input - object
         output - boolean
@@ -34,7 +37,6 @@ class Car(object):
         self.license_plate_state = None
         self.license_plate_number = None
         self.__claim_history = []
-        self.claim_history = self.__claim_history()
 
     @staticmethod
     def check(car):
@@ -58,7 +60,7 @@ class Car(object):
         else: self.__insert_claim(claims)
 
     def remove_claim_at_index(self, index):
-        del self.__claim_history(index)
+        del(self.__claim_history[index])
 
     def __insert_claim(self, claim):
         if not issubclass(claim, Claims):
@@ -74,13 +76,29 @@ class Car(object):
             'Vin' : self.vin,
             'License Plate State' : self.license_plate_state,
             'License Plate Number' : self.license_plate_number,
-            'Claim History' : self.claim_history})
+            'Claim History' : self.claim_history}, default=str)
 
     def __repr__(self):
         return json.dumps(self.__dict__, default=str)
 
-class Claims(object):
+    @staticmethod
+    def sort_car_list(cars, key, inplace=False, reverse=False):
+        switcher={ 'year' : lambda x: x.year,
+            'make': lambda x: x.make,
+            'model': lambda x: x.model,
+            'purchase_value': lambda x: x.purchase_value,
+            'license_plate_state': lambda x: x.license_plate_state,
+            'license_plate_number': lambda x: x.license_plate_number,
+            'vin': lambda x: x.vin }
+        func = switcher.get(key,
+            lambda x: (_ for _ in ()).throw(ValueError('Invalid Key')))
+        if inplace: cars.sort(key=func, reverse=reverse)
+        else: return sorted(cars, key=func, reverse=reverse)
 
+class Claims(object):
+    """
+    Abstract base class for claim history
+    """
     def __init__(self):
         self.company = None
 
@@ -88,6 +106,12 @@ class Claims(object):
     def check(claim):
         if not issubclass(claim, Claims):
             raise ValueError('Claim object expected')
+
+    def __repr__(self):
+        return json.dumps(self.__dict__, default=str)
+
+    def __str__(self):
+        self.__repr__()
 
 class Fleet(object):
     """
@@ -151,10 +175,10 @@ class VINIndex(object):
 
     def __add_car(self, car):
         Car.check_with_exception(cars)
-        self.__index[cars.vin] = car
+        self.__index[car.vin] = car
 
     def __repr__(self):
         return json.dumps(self.__dict__, default=str)
 
-def car_sorter(inplace=False, param=None):
-    pass
+    def __str__(self):
+        self.__repr__()
