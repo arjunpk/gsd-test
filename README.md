@@ -7,10 +7,10 @@ The file solutions.py contains data structures designed to address the requireme
 	- Claim history is stored as a list. This list will only accept objects which are inherited from the base class Claims
 2. Requirement 1b: Claims - This is an abstract class which designed to form a base for Claims from different companies. Create a new claims class for each company by extending the Claims class
 	```python
-	class AllStateClaims(Claims):
-		def __init__(self):
-			super().__init__(self, 'AllState')
-			self.attribute1 = None
+	class ProgressiveClaim(Claims):
+	    def __init__(self, year):
+	        super().__init__('Progressive')
+	        self.claim_year = year
 	```
 
 3. Requirement 2 and 3: Fleet - This class holds aggregated metrics for Fleet. This class has a classmethod -agg which returns an instance of the fleet class with data aggregated for input list of Cars
@@ -44,3 +44,5 @@ The file solutions.py contains data structures designed to address the requireme
       if inplace: cars.sort(key=func, reverse=reverse)
       else: return sorted(cars, key=func, reverse=reverse)
   ```
+
+	Please refer examples.py for examples
