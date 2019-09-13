@@ -99,8 +99,8 @@ class Claims(object):
     """
     Abstract base class for claim history
     """
-    def __init__(self):
-        self.company = None
+    def __init__(self, company=None):
+        self.company = company
 
     @staticmethod
     def check(claim):
