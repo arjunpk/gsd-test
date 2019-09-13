@@ -1,86 +1,30 @@
-# Take home Test
-*Python Version = 3.5.6*
+The file solutions.py contains data structures designed to address the requirements. Details on the individual classes can be found in README(detailed).md
 
-This repository has 2 python files.
-1. solution.py - This file contains the Data Structures designed to address the requirements
-2. example.py - This file provides examples/helper functions to demonstrate the usage of the Data Structures and methods in solution.py
+1. Requirement 1a : Car - This data structure holds information for a single car. An id field is automatically generated and the VIN number is mandatory field. Instantiate this as follows:
+	``` python
+	  car = Car('vinnumber')
+	```
+	- Claim history is stored as a list. This list will only accept objects which are inherited from the base class Claims
+2. Requirement 1b: Claims - This is an abstract class which designed to form a base for Claims from different companies. Create a new claims class for each company by extending the Claims class
+	```python
+	class AllStateClaims(Claims):
+		def __init__(self):
+			super().__init__(self, 'AllState')
+			self.attribute1 = None
+	```
 
-# solution.py
-
-## Car
-
-This class holds details of a single Car. This addresses requirement 1.a
-### Fields
-- id - An auto generated unique id
-- vin - VIN(Vehicle Identification Number) of the car. **This field is mandatory**
-- year - The year the car was manufactured
-- make - The Make of the car
-- model - The model of the car
-- purchase_value - The purchase value of the car in dollars
-- license_plate_state - The US state where this car is registered
-- license_plate_number - The license plate number of the car
-- claim_history - A list which holds the claims for this car Each element of this list has to be an object of the base class Claims
-
-### Methods
-#### check
-Check whether an object is an instance of Car
-input - any object
-output - A Boolean value representing if the object is an instance of Car
-
-#### check_with_exception
-Similar to check method. Raises an exception if object is not instance of Car
-input - any object
-
-#### remove_claim_at_index
-Removes a claim from the claim history at a particular index. Results in an exception if the index is invalid
-input - an integer index
-
-#### sort_car_list
-This function was coded to address requirement 5. This function takes a list of cars and sorts it based on the selected key
-inputs
- - cars - A list of cars
- - key - property of the car on which the list has to be sorted. A Value Error occurs if an invalid key is provided. Available properties are
-	 1. year
-	 2. make
-	 3. model
-	 4. purchase_value
-	 5. vin
-	 6. license_plate_state
-	 7. license_plate_number
-- inplace - a boolean value indicating whether the list should be sorted in place. defaults to False
-- reverse - a boolean value indicating whether the list should be sorted i descending order
-
-outputs
- - list of cars sorted based on key. none if the list is being sorted inplace
-
-## Claims
-An abstract base class to define claims for different companies. This addresses requirement 1.b
-
-### Methods
-#### check
-This method check if the object belongs to a class which was derived from this class; raises an exception if not
-inputs - any object
-
-## Fleet
-This class holds aggregate metrics for a fleet of cars. This addresses requirement 2 and requirement 3
-### Fields
-- count - Total number of cars in the fleet
-- count_by_year - Count of number of cars by year of manufacture
-- total_purchase_price - Total purchase price of the cars in the fleet
-### Methods
-#### agg
-This method creates aggregated metrics for a fleet of cars
-input - list of Cars
-output - Fleet object
-usage - Fleet.agg(list)
-
-## VINIndex
-This class creates an index of car objects by VIN Number. This addresses requirement 4
-###Methods
-#### add_car
-This method adds cars to the index. This function accepts a single car object or a list of car objects
-inputs - Car object or list of Cars
-#### get_car_by_vin
-This method fetches a ca object based on a VIN number
-inputs - vin number
-output - Car object if VIN exists in index else None
+3. Requirement 2 and 3: Fleet - This class holds aggregated metrics for Fleet. This class has a classmethod -agg which returns an instance of the fleet class with data aggregated for input list of Cars
+	``` python
+	 fleet = Fleet.agg(cars_list)
+	```
+4. Requirement 4: VINIndex - This class holds an index of cars. The index is stored as a dictionary and hence provides O(1) lookups
+	- Use the `add_car` method to add a list of cars or an individual car.
+	- Use the `get_car_by_vin` method to get an individual car based on a VIN number. This method returns a null if there is no car with a matching VIN in the index
+	``` python
+	idx = VINIndex()
+	# add a list of cars
+	idx.add_car(cars_list)
+	# add an individual car
+	idx.add_car(car)
+	# retreive a car by VIN number
+	car = idx.get_car_by_vin('vin number') 
