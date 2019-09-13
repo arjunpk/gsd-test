@@ -9,7 +9,7 @@ This repository has 2 python files.
 
 ## Car
 
-This class holds details of a single Car
+This class holds details of a single Car. This addresses requirement 1.a
 ### Fields
 - id - An auto generated unique id
 - vin - VIN(Vehicle Identification Number) of the car. **This field is mandatory**
@@ -54,7 +54,7 @@ outputs
  - list of cars sorted based on key. none if the list is being sorted inplace
 
 ## Claims
-An abstract base class to define claims for different companies
+An abstract base class to define claims for different companies. This addresses requirement 1.b
 
 ### Methods
 #### check
@@ -62,7 +62,7 @@ This method check if the object belongs to a class which was derived from this c
 inputs - any object
 
 ## Fleet
-This class holds aggregate metrics for a fleet of cars
+This class holds aggregate metrics for a fleet of cars. This addresses requirement 2 and requirement 3
 ### Fields
 - count - Total number of cars in the fleet
 - count_by_year - Count of number of cars by year of manufacture
@@ -73,3 +73,14 @@ This method creates aggregated metrics for a fleet of cars
 input - list of Cars
 output - Fleet object
 usage - Fleet.agg(list)
+
+## VINIndex
+This class creates an index of car objects by VIN Number. This addresses requirement 4
+###Methods
+#### add_car
+This method adds cars to the index. This function accepts a single car object or a list of car objects
+inputs - Car object or list of Cars
+#### get_car_by_vin
+This method fetches a ca object based on a VIN number
+inputs - vin number
+output - Car object if VIN exists in index else None
