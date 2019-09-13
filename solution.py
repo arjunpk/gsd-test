@@ -20,10 +20,10 @@ class Car(object):
     :method remove_claim_at_index : Remove the claim at a particular
         index from the claim history
         input - index (int)
-    :method check_car : checks if the object is an instance of Car
+    :method check : checks if the object is an instance of Car
         input - object
         output - boolean
-    :method check_car_with_exception : checks if object is an
+    :method check_with_exception : checks if object is an
         instance of Car and raises an exception if not
         input - object
     """
@@ -165,7 +165,7 @@ class VINIndex(object):
         self.__index = {}
 
     def get_car_by_vin(self, vin):
-        return self.__index[vin]
+        return self.__index.get(vin, None)
 
     def add_car(self, cars):
         if isinstance(cars, list):
